@@ -1,0 +1,40 @@
+<script type="text/javascript">
+	function getType(x) {
+		if (x == null) return "null";
+
+		var t = typeof x;
+		if (t != 'object') return t;
+
+		var c = Object.prototype.toString.apply(x);
+		c = c.substring(8, c.length - 1); 
+
+		if (c != "Object") return c;
+
+		if (x.constructor == Object) return c; 
+
+		if ("classname" in x.constructor.prototype && 
+			typeof x.constructor.prototype.classname == 'string') 
+			return x.constructor.prototype.classname;
+
+		return "<unknown type>";
+	}
+
+	var foo = function() {}
+
+	var str= 'message';
+	var num = 10;
+	var obj = {};
+	var arr = [];
+	var n = null;
+	var x;
+	var _undefined = undefined;
+
+	document.write(getType(num)); 					// 'number'
+	document.write("<br>" + getType(str)); 			// 'string'
+	document.write("<br>" + getType(obj)); 			// 'Object'
+	document.write("<br>" + getType(arr)); 			// 'Array'
+	document.write("<br>" + getType(foo)); 			// 'function'
+	document.write("<br>" + getType(n)); 			// 'null'
+	document.write("<br>" + getType(x)); 			// 'null'
+	document.write("<br>" + getType(_undefined)); 	// 'null'
+</script>
